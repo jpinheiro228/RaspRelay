@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
 from flask import Flask
 import RPi.GPIO as GPIO
 from time import sleep
 import logging
+import os
 
 app = Flask(__name__)
 
@@ -43,4 +45,8 @@ def hello():
 
 
 if __name__ == '__main__':
+    PID_FILE = "/var/run/relay.pid"
+    with open(PID_FILE, "w") as f:
+        f.write(str(os.getpid()))
+
     app.run(host="0.0.0.0", port=80, debug=False)
